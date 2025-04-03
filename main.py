@@ -1,8 +1,18 @@
-from wsgiref.simple_server import make_server
-
 from app import FrameWorkApp
 
 app = FrameWorkApp()
 
-server = make_server("localhost", 8000, app)
-server.serve_forever()
+@app.route("/home")
+def home(request, response):
+    response.text = "Home pagedan alangali salom!"
+
+@app.route("/about")
+def about(request, response):
+    response.text = "About pagedan alangali salom!"
+
+"""
+{
+    "/home":home,
+    "/about":about   
+}
+"""
