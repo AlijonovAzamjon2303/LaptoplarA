@@ -1,4 +1,5 @@
 from webob import Request, Response
+from parse import parse
 
 class FrameWorkApp:
     def __init__(self):
@@ -15,6 +16,10 @@ class FrameWorkApp:
         for path, handler in self.routes.items():
             if path == request.path:
                 handler(request, res)
+            else:
+                parsed = parse(path, request.path)
+                if parsed is not None:
+                    handler(request, res, parsed.named.get("id", -1))
 
         return res
 
