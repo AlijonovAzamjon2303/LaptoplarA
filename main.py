@@ -13,16 +13,24 @@ def load_users():
 def home(request, response):
     response.text = "Home pagedan alangali salom!"
 
+@app.route("/home")
+def home2(request, response):
+    response.text = "2-Home"
+
 @app.route("/about")
 def about(request, response):
     response.text = "About pagedan alangali salom!"
 
-@app.route("/u/{id}")
-def get_info(request, response, id):
+@app.route("/u/{login}")
+def get_info(request, response, d):
     users = load_users()
-    user = users.get(id, "Bunday user yo'q!")
+    user = users.get(d.get("login", -1), "Bunday user yo'q!")
 
     response.text = json.dumps(user)
+
+@app.route("/admin/{login}")
+def get_admin(request, response, d):
+    response.text = f"Admin page {d.get("login", -1)}"
 
 """
 {

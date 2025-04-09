@@ -19,11 +19,13 @@ class FrameWorkApp:
             else:
                 parsed = parse(path, request.path)
                 if parsed is not None:
-                    handler(request, res, parsed.named.get("id", -1))
+                    handler(request, res, parsed.named)
 
         return res
 
     def route(self, path):
+        if path in self.routes:
+            raise KeyError("Qisqasi URL da xatolik bor")
         def wrapper(handler):
             self.routes[path] = handler
             return handler
