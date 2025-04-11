@@ -11,11 +11,14 @@ def load_users():
 
 @app.route("/home")
 def home(request, response):
-    response.text = "Home pagedan alangali salom!"
+    with open("id.json", "r") as file:
+        cnt = json.load(file)
+    cnt += 1
 
-@app.route("/home")
-def home2(request, response):
-    response.text = "2-Home"
+    response.text = f"Home pagedan alangali salom! -> {cnt}"
+
+    with open("id.json", "w") as file:
+        json.dump(cnt, file)
 
 @app.route("/about")
 def about(request, response):
